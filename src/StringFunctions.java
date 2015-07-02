@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class StringFunctions {
@@ -7,7 +8,7 @@ public class StringFunctions {
 		String name1 = "reee";
 		String name2 = "eere";
 		
-		boolean isAnagram = checkAnagram(name1, name2);
+		/*boolean isAnagram = checkAnagram(name1, name2);
 		if(isAnagram)
 		{
 			System.out.println(name1 + " and " + name2 + " are anagrams.");
@@ -25,8 +26,104 @@ public class StringFunctions {
 		for (int i = 0; i < stringPermutations.size(); i++) {
 			System.out.print(stringPermutations.get(i));
 			System.out.print("\n");
-		}
+		}*/
+		
+		//int[] rotatedArray = rotateLeft(null, 1);
+		
+		//System.out.println("The string 'reter' is palindrome: " + checkPalindrome("reer"));
+		
+		String s = "turtles";
+		String t = "tlrtues";
+		boolean isIsomorphic = checkIsomorphicStrings(s, t);
+		System.out.println("Strings " + s + " and " + t + " are isomorphic?: " + isIsomorphic);
 
+	}
+	
+	/*
+	 *This function checks if a string is palindrome or not. 
+	 * Example of palindrome: thaht
+	 * O(n) = n/2
+	 */	
+	public static boolean checkPalindrome(String s)
+	{
+		boolean isPalindrome = true;
+		
+		for(int i = 1; i < s.length()/2; i++)
+		{
+			if(s.charAt(i - 1) != s.charAt(s.length() - i))
+			{
+				isPalindrome = false;
+				break;
+			}
+		}
+		
+		return isPalindrome;
+	}
+	
+	/*
+	 * This function checks for isomorphic strings
+	 */
+	public static boolean checkIsomorphicStrings(String s, String t)
+	{
+		boolean isIsomorphic = true;
+		
+		//if the lengths are not equal, return false
+		if(s.length() != t.length())
+		{
+			return false;
+		}
+		
+		HashMap<Character, Character> isomorphicMap = new HashMap<Character, Character> ();
+		
+		for(int i = 0; i < s.length(); i++)
+		{
+			if(isomorphicMap.get(s.charAt(i)) != null)
+			{
+				//check if the already stored value of s(i) key is same as t(i)
+				char ti = t.charAt(i);
+				char si_val = isomorphicMap.get(s.charAt(i));
+				if(ti != si_val)
+				{
+					isIsomorphic = false;
+					break;
+				}
+			}
+			//map the character key from "s" with value from "t"
+			else
+			{
+				isomorphicMap.put(s.charAt(i), t.charAt(i));
+			}
+		}
+		
+		return isIsomorphic;
+	}
+	
+	/*
+	 * This function rotates array by K digits left
+	 */
+	public static int[] rotateLeft(int[] nums, int k)
+	{
+		nums = new int[] {0,1, 2, 3};
+		k = 5;
+		if(k > nums.length)
+			k = k % nums.length;
+		System.out.println(Arrays.toString(nums));
+		int[] rotatedArray = new int[nums.length];
+		
+		for(int i = 0; i < nums.length; i++)
+		{
+			
+			if((i+k) < nums.length)
+				rotatedArray[i] = nums[i + k];
+			else
+				rotatedArray[i] = nums[i + k - nums.length];
+		}
+		
+		System.out.println(Arrays.toString(rotatedArray));
+		
+		
+		
+		return rotatedArray;
 	}
 	
 	//This function checks to see if the two strings are anagrams of each other or not	
