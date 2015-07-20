@@ -29,4 +29,6 @@ public class NumberFunctions {
 		
 		return isPrime;
 	}
+	
+	
 }

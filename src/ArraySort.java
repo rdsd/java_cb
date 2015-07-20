@@ -4,15 +4,97 @@ public class ArraySort {
 
 	public static void main(String[] args) {
 
-		int[] numArray = { 2,1, 0, 0, 9 , -8};
+		int[] numArray = { 3, 1, 2};
 		int[] sortedArray = new int[4];
 
 		// sortedArray = bubbleSort(numArray);
 
-		sortedArray = mergeSort(numArray);
+		//sortedArray = mergeSort(numArray);
+		sortedArray = quickSort(numArray);
 		System.out.println("The sorted array is:");
 		System.out.println(Arrays.toString(sortedArray));
 	}
+	
+	/* This function checks to see if the number on left of a pivot is less than pivot. If not, 
+	 * it gets swapped with a number on the right of the pivot that is less than the pivot.
+	 * This way all the elements on the left of the pivot are less than it and all the elements
+	 * on the right of the array are greater than it. After that, it recursively sorts the left array
+	 * and right array.
+	 */
+	public static int[] quickSort(int[] numArray)
+	{
+		if(numArray.length <= 1)
+			return numArray;
+		
+		int[] lessArray = new int[1];
+		int[] greaterArray = new int[1];
+		int j = 0;
+		int k = 0;
+		//pivot index = middle of the array
+		int pi = numArray.length/2;
+		for(int i=0; i < numArray.length; i++)
+		{
+			if(i == pi)continue;
+			if(numArray[i] < numArray[pi])
+			{
+				lessArray[j++] = numArray[i];
+			}
+			else
+			{
+				greaterArray[k++] = numArray[i];
+			}
+		}
+		
+		int[] sortedLessArray = quickSort(lessArray);
+		
+		int [] sortedArray = new int[lessArray.length + 1 + greaterArray.length];
+		for(int n=0; n<lessArray.length; n++)
+		{
+			sortedArray[n] = sortedLessArray[n];
+		}
+		sortedArray[lessArray.length] = numArray[pi];
+		
+		int t = 0;
+		
+		int[] sortedGreaterArray = quickSort(greaterArray);
+		
+		for(int m =  lessArray.length +1; m < lessArray.length + greaterArray.length; m++)
+		{
+			sortedArray[m] = sortedGreaterArray[t++];
+		}
+		
+		
+		
+		/*//check to see if the number on left and right need to be swapped
+		for(int i = 0; i < pi; i++)
+		{
+			if(numArray[i] > numArray[pi])
+			{
+				for(int j = numArray.length - 1; j > pi; j--)
+				{
+					if(numArray[j] < numArray[pi])
+					{
+						int temp;
+						temp = numArray[j];
+						numArray[j] = numArray[i];
+						numArray[i] = temp;
+					}
+					else
+					{
+						pi = 
+					}
+				}
+			}
+		}*/
+		
+		//int[] leftArray = Arrays.copyOfRange(numArray, 0, pi);
+		
+		
+		
+		
+		return sortedArray;
+	}
+	
 
 	/*
 	 * This function checks if a number is bigger than its adjacent number. If
